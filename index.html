@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drita AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <div class="card">
+      <h1>Drita AI</h1>
+      <p class="subtitle">AI Teacher për Anglisht dhe Greqisht</p>
+
+      <div class="avatar-wrap">
+        <img id="avatar" src="avatar.gif" alt="Drita AI Avatar" class="avatar">
+      </div>
+
+      <div class="status" id="status">Gjendja: Duke pritur...</div>
+
+      <div class="chat-box" id="chat">
+        <div class="message ai">
+          <span class="name">Drita AI</span>
+          <p>Përshëndetje! Shkruaj një fjalë në shqip dhe unë do të të ndihmoj.</p>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <input
+          type="text"
+          id="input"
+          placeholder="Shkruaj këtu..."
+          onkeydown="handleEnter(event)"
+        >
+        <button onclick="sendMessage()">Dërgo</button>
+      </div>
+
+      <div class="actions">
+        <button onclick="startVoice()">🎤 Fol</button>
+        <button onclick="speakLast()">🔊 Dëgjo</button>
+        <button onclick="clearChat()">🗑 Pastro</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
