@@ -3,35 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drita AI</title>
+  <title>Drita AI - Shqip në Greqisht</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="app">
     <div class="card">
       <h1>Drita AI</h1>
-      <p class="subtitle">AI Teacher për Anglisht dhe Greqisht</p>
+      <p class="subtitle">Mësuese AI për shqiptarë që duan të mësojnë greqisht</p>
 
-      <div class="avatar-wrap">
-        <img id="avatar" src="avatar.gif" alt="Drita AI Avatar" class="avatar">
+      <div class="teacher-box">
+        <img id="avatar" src="avatar.gif" alt="Drita AI" class="avatar">
+        <div class="teacher-status" id="status">Gjendja: Gati për të dëgjuar</div>
       </div>
 
-      <div class="status" id="status">Gjendja: Duke pritur...</div>
+      <div class="level-bar">
+        <button onclick="startLesson('A1')">A1</button>
+        <button onclick="startLesson('A2')">A2</button>
+        <button onclick="startLesson('B1')">B1</button>
+        <button onclick="startLesson('B2')">B2</button>
+      </div>
+
+      <div class="lesson-info" id="lessonInfo">Mësimi: Asnjë mësim aktiv</div>
 
       <div class="chat-box" id="chat">
         <div class="message ai">
           <span class="name">Drita AI</span>
-          <p>Përshëndetje! Shkruaj një fjalë në shqip dhe unë do të të ndihmoj.</p>
+          <p>Përshëndetje! Unë jam Drita. Do të të mësoj greqisht hap pas hapi. Thuaj “dua mësim” ose zgjidh një nivel.</p>
         </div>
       </div>
 
       <div class="input-row">
-        <input
-          type="text"
-          id="input"
-          placeholder="Shkruaj këtu..."
-          onkeydown="handleEnter(event)"
-        >
+        <input type="text" id="input" placeholder="Shkruaj në shqip..." onkeydown="handleEnter(event)">
         <button onclick="sendMessage()">Dërgo</button>
       </div>
 
