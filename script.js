@@ -1,181 +1,181 @@
-const avatar = document.getElementById("avatar");
-const chat = document.getElementById("chat");
-const input = document.getElementById("input");
-const statusText = document.getElementById("status");
-
-const normalAvatar = "avatar.gif";
-const talkingAvatar = "voice.gif";
-
-let lastReply = "Përshëndetje! Shkruaj një fjalë në shqip dhe unë do të të ndihmoj.";
-
-function handleEnter(event) {
-  if (event.key === "Enter") {
-    sendMessage();
-  }
+* {
+  box-sizing: border-box;
 }
 
-function setStatus(text) {
-  statusText.textContent = text;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #14315f 0%, #09111f 45%, #050a14 100%);
+  color: white;
+  min-height: 100vh;
 }
 
-function switchToNormal() {
-  avatar.src = normalAvatar;
-  avatar.classList.remove("talking");
-  setStatus("Gjendja: Duke pritur...");
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
 }
 
-function switchToTalking() {
-  avatar.src = talkingAvatar;
-  avatar.classList.add("talking");
-  setStatus("Gjendja: Duke folur...");
+.card {
+  width: 100%;
+  max-width: 860px;
+  background: rgba(10, 20, 40, 0.82);
+  border: 1px solid rgba(90, 170, 255, 0.18);
+  border-radius: 26px;
+  padding: 28px;
+  box-shadow: 0 0 30px rgba(0, 170, 255, 0.12), 0 0 80px rgba(0, 80, 180, 0.12);
 }
 
-function addMessage(sender, text, type) {
-  const message = document.createElement("div");
-  message.className = `message ${type}`;
-
-  message.innerHTML = `
-    <span class="name">${sender}</span>
-    <p>${text}</p>
-  `;
-
-  chat.appendChild(message);
-  chat.scrollTop = chat.scrollHeight;
+h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 46px;
 }
 
-function getReply(userText) {
-  const text = userText.toLowerCase().trim();
-
-  if (text.includes("pershendetje") || text.includes("përshëndetje") || text.includes("hello")) {
-    return "Në anglisht themi: Hello. Στα ελληνικά: Γεια σου.";
-  }
-
-  if (text.includes("si je")) {
-    return "Në anglisht: How are you? Στα ελληνικά: Τι κάνεις;";
-  }
-
-  if (text.includes("shtepi") || text.includes("shtëpi")) {
-    return "Në anglisht: House. Στα ελληνικά: Σπίτι.";
-  }
-
-  if (text.includes("uje") || text.includes("ujë")) {
-    return "Në anglisht: Water. Στα ελληνικά: Νερό.";
-  }
-
-  if (text.includes("buk")) {
-    return "Në anglisht: Bread. Στα ελληνικά: Ψωμί.";
-  }
-
-  if (text.includes("faleminderit")) {
-    return "Në anglisht: Thank you. Στα ελληνικά: Ευχαριστώ.";
-  }
-
-  if (text.includes("miredita") || text.includes("mirëdita")) {
-    return "Në anglisht: Good afternoon. Στα ελληνικά: Καλημέρα / Καλό μεσημέρι.";
-  }
-
-  if (text.includes("nata e mire") || text.includes("natën e mirë")) {
-    return "Në anglisht: Good night. Στα ελληνικά: Καληνύχτα.";
-  }
-
-  if (text.includes("dua te mesoj") || text.includes("dua të mësoj")) {
-    return "Shumë mirë. Mund të fillojmë me fjalë të thjeshta, fraza, ose dialog të shkurtër.";
-  }
-
-  return "Shkruaj një fjalë ose frazë në shqip και εγώ θα στη μεταφράσω σε anglisht ose greqisht.";
+.subtitle {
+  text-align: center;
+  color: #b9d9ff;
+  margin: 10px 0 22px;
 }
 
-function speakText(text) {
-  if (!("speechSynthesis" in window)) {
-    alert("Ky browser nuk mbështet text to speech.");
-    return;
+.teacher-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.avatar {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.35), 0 0 55px rgba(0, 170, 255, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.avatar.talking {
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.65), 0 0 70px rgba(0, 170, 255, 0.35);
+}
+
+.teacher-status {
+  margin-top: 12px;
+  color: #7fd8ff;
+  font-size: 15px;
+}
+
+.level-bar,
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.lesson-info {
+  text-align: center;
+  color: #ffd166;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.chat-box {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  min-height: 290px;
+  max-height: 390px;
+  overflow-y: auto;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.message {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  line-height: 1.5;
+}
+
+.message .name {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.message.user {
+  background: rgba(0, 170, 255, 0.14);
+  border: 1px solid rgba(0, 170, 255, 0.14);
+}
+
+.message.ai {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.message p {
+  margin: 0;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+input {
+  flex: 1;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 170, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 15px;
+  outline: none;
+}
+
+input::placeholder {
+  color: #aac6e8;
+}
+
+button {
+  border: none;
+  border-radius: 14px;
+  padding: 13px 16px;
+  background: linear-gradient(180deg, #1ea8ff, #0f7fe0);
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.95;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 20px;
   }
 
-  window.speechSynthesis.cancel();
-
-  const speech = new SpeechSynthesisUtterance(text);
-  speech.lang = "en-GB";
-  speech.rate = 1;
-  speech.pitch = 1;
-
-  speech.onstart = function () {
-    switchToTalking();
-  };
-
-  speech.onend = function () {
-    switchToNormal();
-  };
-
-  speech.onerror = function () {
-    switchToNormal();
-  };
-
-  window.speechSynthesis.speak(speech);
-}
-
-function sendMessage() {
-  const userText = input.value.trim();
-
-  if (!userText) return;
-
-  addMessage("You", userText, "user");
-
-  const reply = getReply(userText);
-  lastReply = reply;
-
-  addMessage("Drita AI", reply, "ai");
-
-  input.value = "";
-
-  speakText(reply);
-}
-
-function speakLast() {
-  speakText(lastReply);
-}
-
-function startVoice() {
-  const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  if (!SpeechRecognition) {
-    alert("Ky browser nuk e mbështet voice recognition.");
-    return;
+  h1 {
+    font-size: 36px;
   }
 
-  setStatus("Gjendja: Duke dëgjuar...");
+  .avatar {
+    width: 180px;
+    height: 180px;
+  }
 
-  const recognition = new SpeechRecognition();
-  recognition.lang = "sq-AL";
+  .input-row {
+    flex-direction: column;
+  }
 
-  recognition.onresult = function (event) {
-    const text = event.results[0][0].transcript;
-    input.value = text;
-    setStatus("Gjendja: U dëgjua zëri.");
-  };
-
-  recognition.onerror = function () {
-    setStatus("Gjendja: Gabim në mikrofon.");
-  };
-
-  recognition.onend = function () {
-    if (!avatar.classList.contains("talking")) {
-      setStatus("Gjendja: Duke pritur...");
-    }
-  };
-
-  recognition.start();
-}
-
-function clearChat() {
-  chat.innerHTML = `
-    <div class="message ai">
-      <span class="name">Drita AI</span>
-      <p>Përshëndetje! Shkruaj një fjalë në shqip dhe unë do të të ndihmoj.</p>
-    </div>
-  `;
-
-  lastReply = "Përshëndetje! Shkruaj një fjalë në shqip dhe unë do të të ndihmoj.";
-  window.speechSynthesis.cancel();
-  switchToNormal();
+  button {
+    width: 100%;
+  }
 }
